@@ -1,60 +1,86 @@
 ---
 services:
   db:
-    image: sreejaredithala/python-task:mydb
-    deploy:
-      replicas: 1
+    image: sreejaredithala/devops-python:mydata
     ports:
       - "3306:3306"
+    volumes:
+      - mydata:/var/lib/mysql
     networks:
-      - mynetwork
-
-  auth_service:
-    image: sreejaredithala/python-task:auth
+      - myapp
     deploy:
-      replicas: 1
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 200M
+
+ auth_service:
+    image: sreejaredithala/devops-python:authorization
     ports:
       - "5001:5001"
     networks:
-      - mynetwork
-    depends_on:
-      - db
+      - myapp
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 200M
     
 
   book_service:
-    image: sreejaredithala/python-task:book
-    deploy:
-      replicas: 1
+    image: sreejaredithala/devops-python:books
     ports:
       - "5002:5002"
     networks:
-      - mynetwork
-    depends_on:
-      - db
-  borrow_service:
-    image: sreejaredithala/python-task:borrow
+      - myapp
     deploy:
-      replicas: 1
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 200M
+          
+ borrow_service:
+    image: sreejaredithala/devops-python:borrowapp
     ports:
       - "5003:5003"
     networks:
-      - mynetwork
-    depends_on:
-      - db
+      - myapp
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 200M
 
   frontend:
-    image: sreejaredithala/python-task:app
-    deploy:
-      replicas: 1
+    image: sreejaredithala/devops-python:pythonapp
     ports:
       - "5000:5000"
     networks:
-      - mynetwork
-    depends_on:
-      - auth_service
-      - book_service
-      - borrow_service
+      - myapp
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 200M
+
 
 networks:
-  mynetwork:
+  myapp:
     driver: overlay
+volumes:
+  mydata:
