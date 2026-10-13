@@ -17,7 +17,7 @@ services:
           cpus: "0.5"
           memory: 200M
 
- auth_service:
+  auth_service:
     image: sreejaredithala/devops-python:authorization
     ports:
       - "5001:5001"
@@ -31,7 +31,6 @@ services:
         limits:
           cpus: "0.5"
           memory: 200M
-    
 
   book_service:
     image: sreejaredithala/devops-python:books
@@ -47,8 +46,8 @@ services:
         limits:
           cpus: "0.5"
           memory: 200M
-          
- borrow_service:
+
+  borrow_service:
     image: sreejaredithala/devops-python:borrowapp
     ports:
       - "5003:5003"
@@ -78,9 +77,10 @@ services:
           cpus: "0.5"
           memory: 200M
 
-
 networks:
   myapp:
     driver: overlay
+
 volumes:
   mydata:
+```
