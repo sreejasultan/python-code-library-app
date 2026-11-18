@@ -1,7 +1,7 @@
 ---
 services:
   db:
-    image: sreejaredithala/devops:mydata
+    image: sreejaredithala/python-project2:dbimage
     ports:
       - "3306:3306"
     volumes:
@@ -18,7 +18,7 @@ services:
           memory: 200M
 
   auth_service:
-    image: sreejaredithala/devops:authorization
+    image: sreejaredithala/python-project2:authimage
     ports:
       - "5001:5001"
     networks:
@@ -33,7 +33,7 @@ services:
           memory: 200M
 
   book_service:
-    image: sreejaredithala/devops:books
+    image: sreejaredithala/python-project2:bookimage
     ports:
       - "5002:5002"
     networks:
@@ -48,7 +48,7 @@ services:
           memory: 200M
 
   borrow_service:
-    image: sreejaredithala/devops:borrowapp
+    image: sreejaredithala/python-project2:borrowimage
     ports:
       - "5003:5003"
     networks:
@@ -63,7 +63,7 @@ services:
           memory: 200M
 
   frontend:
-    image: sreejaredithala/devops:pythonapp
+    image: sreejaredithala/python-project2:appimage
     ports:
       - "5000:5000"
     networks:
